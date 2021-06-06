@@ -73,7 +73,7 @@
 		</div>
 	</div>
 
-	<script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD&disable-funding=credit"></script>
+	{% comment %} <script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD&disable-funding=credit"></script>
 
 	<script>
 		var total = '{{order.get_cart_total}}'
@@ -94,7 +94,7 @@
                         }
                     }]
                 });
-            },
+            }, 
 
             // Finalize the transaction
             onApprove: function(data, actions) {
@@ -105,10 +105,11 @@
             }
 
         }).render('#paypal-button-container');
-    </script>
+    </script>  {% endcomment %}
 
 	<script type="text/javascript">
 		var shipping = '{{order.shipping}}'
+		var total = '{{ order.get_cart_total }}'
 
 		if (shipping == 'False'){
 		 	document.getElementById('shipping-info').innerHTML = ''
@@ -133,11 +134,11 @@
 	    	document.getElementById('payment-info').classList.remove("hidden");
 	    })
 
-		/*
+		
 	    document.getElementById('make-payment').addEventListener('click', function(e){
 	    	submitFormData()
 	    })
-	    */
+	    
 
 	    function submitFormData(){
 	    	console.log('Payment button clicked')
@@ -174,7 +175,7 @@
 	    	fetch(url, {
 	    		method:'POST',
 	    		headers:{
-	    			'Content-Type':'applicaiton/json',
+	    			'Content-Type':'application/json',
 	    			'X-CSRFToken':csrftoken,
 	    		}, 
 	    		body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
